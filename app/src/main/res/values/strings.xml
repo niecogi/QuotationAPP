@@ -3,18 +3,23 @@
     <string name="name_fav_quotes"> Favorite quotations</string>
     <string name="name_settings">Settings</string>
     <string name="name_about">About</string>
-    <string name="tittle_quotation">Quotation Shake</string>
+    <string name="name_author_info"> Author info</string>
+    <string name="tittle_quotation" translatable="false">Quotation Shake</string>
     <string name="tittle_random"> Random quotations</string>
     <string name="tittle_settings"> Settings</string>
     <string name="tittle_about"> About</string>
-    <string name="tag_quotation">"Quotation Shake by\n\nNieves Codoner\n\nniecogi@inf.upv.es\n\nDADM 2021 "</string>
-    <string name="person1_description">Persona 1 que ha hecho la APP</string>
-    <string name="person2_description">Persona 2 que ha hecho la APP</string>
+    <string name="tag_quotation">"Quotation Shake by  Nieves C  niecogi@inf.upv.es \\nDADM 2021 "</string>
+    <string name="person1_description">Person1</string>
+    <string name="person2_description">Person 2</string>
     <string name="t_settings_name"> Name that identifies the user</string>
     <string name="t_settings_insert_name"> Insert your name</string>
     <string name="t_settings_language"> Quotations will  be  received  in  the  selected language </string>
     <string name="t_settings_method">Web requests will be performed using the selected HTTP method</string>
-    <string name="t_settings_get">GET</string>
-    <string name="t_settings_post">POST</string>
+    <string name="t_settings_get" translatable="false">GET</string>
+    <string name="t_settings_post" translatable="false">POST</string>
+    <string name="t_sample_quotation">This is a sample quotation</string>
+    <string name="t_sample_autor">This is sample autor</string>
+    <string name="t_hello">“Hello%1s! Press Refresh to get a new quotation</string>
+
 
 </resources>
