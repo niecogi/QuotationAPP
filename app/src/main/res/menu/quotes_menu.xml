@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/addFavsQuote"
+        android:icon="@android:drawable/ic_menu_add"
+        android:title="@string/menu_add"
+        android:visible="false"
+        ></item>
+
+    <item
+        android:id="@+id/getNewQuote"
+        android:icon="@android:drawable/ic_menu_rotate"
+        android:visible="true"
+        android:title="@string/menu_refresh"></item>
+</menu>

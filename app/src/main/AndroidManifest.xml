@@ -16,19 +16,43 @@
         android:label="@string/tittle_quotation"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Practica2">
+        android:theme="@style/Theme.Practica2"
+
+        >
         <activity android:name=".QuotationActivity"
-            android:label="@string/tittle_random"></activity>
+            android:label="@string/tittle_random"
+            android:parentActivityName=".DashboardActivity">
+            <meta-data android:name="android.support.PARENT_ACTIVITY"
+            android:value=".DashboardActivity" />
+        >
+
+        </activity>
+
         <activity
             android:name=".FavouriteActivity"
-            android:label="@string/tittle_quotation" />
+            android:label="@string/tittle_quotation"
+            android:parentActivityName=".DashboardActivity">
+        <meta-data android:name="android.support.PARENT_ACTIVITY"
+            android:value=".DashboardActivity" />
+        </activity>
+
         <activity
             android:name=".SettingsActivity"
             android:label="@string/tittle_settings"
-            android:windowSoftInputMode="stateAlwaysHidden" />
+            android:windowSoftInputMode="stateAlwaysHidden"
+            android:parentActivityName=".DashboardActivity">
+            <meta-data android:name="android.support.PARENT_ACTIVITY"
+                android:value=".DashboardActivity" />
+        </activity>
+
         <activity
             android:name=".AboutActivity"
-            android:label="@string/tittle_about" />
+            android:label="@string/tittle_about"
+            android:parentActivityName=".DashboardActivity">
+            <meta-data android:name="android.support.PARENT_ACTIVITY"
+            android:value=".DashboardActivity" />
+        </activity>
+
         <activity android:name=".DashboardActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

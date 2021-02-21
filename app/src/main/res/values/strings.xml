@@ -19,7 +19,37 @@
     <string name="t_settings_post" translatable="false">POST</string>
     <string name="t_sample_quotation">This is a sample quotation</string>
     <string name="t_sample_autor">This is sample autor</string>
-    <string name="t_hello">“Hello%1s! Press Refresh to get a new quotation</string>
+    <string name="t_hello">Hello%1s! Press Refresh to get a new quotation</string>
+    <string name="a1_item_english"> English </string>
+    <string name="a1_item_russian"> Russian </string>
+    <string name="quote1" translatable="false">Example</string>
+    <string name="author1" translatable="false"> Nieves</string>
+    <string name="quote2">Be yourself; everyone else is already taken. </string>
+    <string name="author2" translatable="false">Oscar Wilde</string>
+    <string name="quote3">Two things are infinite: the universe and human stupidity; and Im not sure about the universe.</string>
+    <string name="author3" translatable="false">Albert Einstein</string>
+    <string name="quote4">So many books, so little time.</string>
+    <string name="author4" translatable="false">Frank Zappa</string>
+    <string name="quote5">You only live once, but if you do it right, once is enough.</string>
+    <string name="author5" translatable="false">Mae West</string>
+    <string name="quote6">Be nice to nerds. You may end up working for them. We all could.</string>
+    <string name="author6" translatable="false">Charles J.Skykes</string>
+    <string name="quote7">A day without laughter is a day wasted</string>
+    <string name="author7" translatable="false">Nicolas Chamfort</string>
+    <string name="quote8">Happiness in intelligent people is the rarest thing I know.</string>
+    <string name="author8" translatable="false">Ernest Hemingway, The Garden of Eden</string>
+    <string name="quote9">The only true wisdom is in knowing you know nothing.</string>
+    <string name="author9" translatable="false">Socrates</string>
+    <string name="quote10">Perhaps one did not want to be loved so much as to be understood.</string>
+    <string name="author10" translatable="false">George Orwell</string>
+    <string name="menu_add">Add</string>
+    <string name="menu_refresh">Refresh</string>
+    <string name="yes">Yes</string>
+    <string name="no" translatable="false">No</string>
+    <string name="menu_clear_all_fav">Clear All</string>
+    <string name="confirm_clear_all_fav">Are you sure that you want to delete ALL your favourite quotations?</string>
+
+
 
 
 </resources>
