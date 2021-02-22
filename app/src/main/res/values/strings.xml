@@ -19,7 +19,7 @@
     <string name="t_settings_post" translatable="false">POST</string>
     <string name="t_sample_quotation">This is a sample quotation</string>
     <string name="t_sample_autor">This is sample autor</string>
-    <string name="t_hello">Hello%1s! Press Refresh to get a new quotation</string>
+    <string name="t_hello">Hello %1s! Press Refresh to get a new quotation</string>
     <string name="a1_item_english"> English </string>
     <string name="a1_item_russian"> Russian </string>
     <string name="quote1" translatable="false">Example</string>
@@ -48,6 +48,7 @@
     <string name="no" translatable="false">No</string>
     <string name="menu_clear_all_fav">Clear All</string>
     <string name="confirm_clear_all_fav">Are you sure that you want to delete ALL your favourite quotations?</string>
+    <string name="nameless">Nameless One</string>
 
 
 
