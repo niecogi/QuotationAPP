@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
+    android:background="@drawable/button_selector"
     tools:context=".DashboardActivity">
 
 
@@ -17,6 +17,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="4dp"
         android:text="@string/name_get_quotes"
+        android:textColor="@color/button_color_text"
         android:onClick="launchExplicitIntent"
         app:layout_constraintBottom_toTopOf="@+id/b_fav_quotes"
         app:layout_constraintEnd_toEndOf="parent"
@@ -32,6 +33,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="4dp"
         android:text="@string/name_fav_quotes"
+        android:textColor="@color/button_color_text"
         android:onClick="launchExplicitIntent"
         app:layout_constraintBottom_toTopOf="@+id/b_settings"
         app:layout_constraintEnd_toEndOf="parent"
@@ -47,6 +49,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="4dp"
         android:text="@string/name_settings"
+        android:textColor="@color/button_color_text"
         android:onClick="launchExplicitIntent"
         app:layout_constraintBottom_toTopOf="@+id/b_about"
         app:layout_constraintEnd_toEndOf="parent"
@@ -62,6 +65,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:text="@string/name_about"
+        android:textColor="@color/button_color_text"
         android:onClick="launchExplicitIntent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
