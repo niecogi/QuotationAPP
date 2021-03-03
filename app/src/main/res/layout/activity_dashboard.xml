@@ -22,7 +22,9 @@
         app:layout_constraintBottom_toTopOf="@+id/b_fav_quotes"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:theme="@style/AppTheme.Button"
+        />
 
     <Button
         android:id="@+id/b_fav_quotes"
@@ -38,7 +40,8 @@
         app:layout_constraintBottom_toTopOf="@+id/b_settings"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/b_get_quotes" />
+        app:layout_constraintTop_toBottomOf="@+id/b_get_quotes"
+        android:theme="@style/AppTheme.Button"/>
 
     <Button
         android:id="@+id/b_settings"
@@ -54,7 +57,8 @@
         app:layout_constraintBottom_toTopOf="@+id/b_about"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/b_fav_quotes" />
+        app:layout_constraintTop_toBottomOf="@+id/b_fav_quotes"
+        android:theme="@style/AppTheme.Button"/>
 
     <Button
         android:id="@+id/b_about"
@@ -70,6 +74,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/b_settings" />
+        app:layout_constraintTop_toBottomOf="@+id/b_settings"
+        android:theme="@style/AppTheme.Button"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,29 +1,41 @@
 package com.example.practica2;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.widget.EditText;
-import android.widget.TextView;
 
-import java.util.List;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.practica2.fragments.SettingsFragment;
 
 public class SettingsActivity extends AppCompatActivity {
-    private EditText username;
+    //private EditTextPreference username;
+
+    private String user;
+    private String username;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-        username = (EditText) findViewById(R.id.editTextUsername_Settings);
+
+        getSupportFragmentManager()
+                .beginTransaction()
+                .setReorderingAllowed(true)
+                .replace(R.id.fcvSettingsLayoutActivity, SettingsFragment.class, null)
+                .commit();
+
+        //username = (EditText) findViewById(R.id.editTextUsername_Settings);
+        //SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
+        //username.setText(pref.getString("username",""));
+
+
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
-        username.setText(pref.getString("username",""));
+        user = pref.getString("username","");
+        //username.setText(pref.getString("username",""));
+
 
 
 
@@ -32,17 +44,25 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        username = (EditText) findViewById(R.id.editTextUsername_Settings);
+        //username = (EditText) findViewById(R.id.editTextUsername_Settings);
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor  editor = preferences.edit();
-
-        if (username.getText() != null){
+/*
+        if (preferences.getString("username","") != null){
             editor.putString("username",username.getText().toString());
 
         }else {
             editor.remove(username.getText().toString());
         }
         editor.apply();
+
+ */
+        if(preferences.getString("username","")!= null){
+            editor.putString("username", user);
+
+        }else{
+            editor.remove(user);
+        }
 
     }
 }

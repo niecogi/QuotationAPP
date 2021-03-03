@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+        <EditTextPreference
+            android:key="username"
+
+            android:title="@string/t_settings_name" />
+        <PreferenceCategory>
+            <ListPreference
+                android:entries="@array/array1_languages"
+                android:key="settings_languages"
+                android:title="@string/t_settings_language" />
+            <ListPreference
+                android:entries="@array/array2_method_HTTP"
+                android:key="settings_methods"
+                android:title="@string/t_settings_method" />
+        </PreferenceCategory>
+    <PreferenceCategory android:title="@string/databases_tittle">
+        <ListPreference
+            android:entries="@array/array3_options_access_database_label"
+            android:entryValues="@array/array4_options_access_database_values"
+            android:key="@string/preference_database"
+            android:title="@string/database_label"
+             />
+    </PreferenceCategory>
+
+    </PreferenceScreen>

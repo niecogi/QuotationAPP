@@ -1,6 +1,5 @@
 package com.example.practica2.adapter;
-import com.example.practica2.R;
-import  com.example.practica2.quotation.Quotation;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,15 +7,18 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
+import com.example.practica2.R;
+import com.example.practica2.quotation.Quotation;
+
+import java.util.List;
 
 //Adapter
 public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
-private ArrayList<Quotation> qList;
+private List<Quotation> qList;
 private OnItemClickListener itemClickListener;
 private OnItemLongClickListener itemLongClickListener;
 
-    public Adapter(ArrayList<Quotation> list, OnItemClickListener itemClickListener,OnItemLongClickListener itemLongClickListener){
+    public Adapter(List<Quotation> list, OnItemClickListener itemClickListener,OnItemLongClickListener itemLongClickListener){
         this.qList = list;
         this.itemClickListener = itemClickListener;
         this.itemLongClickListener = itemLongClickListener;

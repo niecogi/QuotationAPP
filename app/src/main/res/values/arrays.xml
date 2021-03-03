@@ -1,8 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <array name="array1_idioms">
+    <array name="array1_languages">
         <item>@string/a1_item_english</item>
         <item>@string/a1_item_russian</item>
-
     </array>
+
+    <array name="array2_method_HTTP">
+        <item>@string/a1_settings_get</item>
+        <item>@string/a2_settings_post</item>
+    </array>
+
+    <array name="array3_options_access_database_label">
+    <item> @string/a1_item_Room</item>
+    <item> @string/a2_item_SQLiteOpenHelper</item>
+    </array>
+    <array name="array4_options_access_database_values">
+        <item>@string/a1_0</item>
+        <item>@string/a2_1</item>
+    </array>
+
 </resources>

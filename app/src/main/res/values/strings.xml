@@ -15,13 +15,14 @@
     <string name="t_settings_insert_name"> Insert your name</string>
     <string name="t_settings_language"> Quotations will  be  received  in  the  selected language </string>
     <string name="t_settings_method">Web requests will be performed using the selected HTTP method</string>
-    <string name="t_settings_get" translatable="false">GET</string>
-    <string name="t_settings_post" translatable="false">POST</string>
-    <string name="t_sample_quotation">This is a sample quotation</string>
-    <string name="t_sample_autor">This is sample autor</string>
+    <string name="a1_settings_get" translatable="false">GET</string>
+    <string name="a2_settings_post" translatable="false">POST</string>
+    <string name="t_sample_quotation">Sample quote %1$d</string>
+    <string name="t_sample_autor">Sample autor %1$d</string>
     <string name="t_hello">Hello %1s! Press Refresh to get a new quotation</string>
     <string name="a1_item_english"> English </string>
     <string name="a1_item_russian"> Russian </string>
+
     <string name="quote1" translatable="false">Example</string>
     <string name="author1" translatable="false"> Nieves</string>
     <string name="quote2">Be yourself; everyone else is already taken. </string>
@@ -42,13 +43,28 @@
     <string name="author9" translatable="false">Socrates</string>
     <string name="quote10">Perhaps one did not want to be loved so much as to be understood.</string>
     <string name="author10" translatable="false">George Orwell</string>
+
+
     <string name="menu_add">Add</string>
     <string name="menu_refresh">Refresh</string>
     <string name="yes">Yes</string>
     <string name="no" translatable="false">No</string>
     <string name="menu_clear_all_fav">Clear All</string>
+    <string name="confirm_clear_quotation">Are you sure you want to delete the quotation?</string>
     <string name="confirm_clear_all_fav">Are you sure that you want to delete ALL your favourite quotations?</string>
     <string name="nameless">Nameless One</string>
+    
+    
+    <string name="databases_tittle">This is the database</string>
+    <string name="database_label">This is the database_label</string>
+
+    <string name="a1_item_Room" translatable="false">Room</string>
+    <string name="a2_item_SQLiteOpenHelper" translatable="false">SQLiteOpenHelper</string>
+
+    <string name="a1_0" translatable="false">0</string>
+    <string name="a2_1" translatable="false">1</string>
+    <string name="preference_database" translatable="false">preference_database</string>
+
 
 
 
