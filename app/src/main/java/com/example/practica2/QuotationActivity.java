@@ -86,11 +86,12 @@ public class QuotationActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.addFavsQuote:
                 addQuotationsInDatabase(quotation);
-                isVisibleFavourites = false;
+                seeTheAddButton(quotation);
+                //isVisibleFavourites = false;
                 supportInvalidateOptionsMenu();
                 return true;
             case R.id.getNewQuote:
-                isVisibleFavourites = true;
+                seeTheAddButton(quotation);
                 textViewAuthor = findViewById(R.id.textViewAutor);
                 textViewText = findViewById(R.id.textViewText);
 
@@ -107,35 +108,45 @@ public class QuotationActivity extends AppCompatActivity {
 
 
     private void seeTheAddButton (final Quotation quotation) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                switch (prefDB) {
+                    case Room:
+                        boolean isInROOMDatabase = QuotationRoomDatabase.getInstance(QuotationActivity.this).getQuotationDAO().getQuotationByText((quotation.getQuoteText())) != null;
+                        isVisibleFavourites= !isInROOMDatabase;
 
-        switch (prefDB) {
-            case Room:
-                boolean isInROOMDatabase = QuotationRoomDatabase.getInstance(QuotationActivity.this).getQuotationDAO().getQuotationByText((quotation.getQuoteText())) != null;
-                isVisibleFavourites=false;
+                        break;
+                    case SQLite:
+                        boolean isInSQLDatabase = QuotationSQLiteHelper.getInstance(QuotationActivity.this).isInTheFavDatabase(quotation);
+                        isVisibleFavourites= !isInSQLDatabase;
 
-                break;
-            case SQLite:
-                boolean isInSQLDatabase = QuotationSQLiteHelper.getInstance(QuotationActivity.this).isInTheFavDatabase(quotation);
-                menuFav.setVisible(!isInSQLDatabase) ;
+                        break;
 
-                break;
+                    default:
+                        isVisibleFavourites =true;
+                }
+            }
+        }).start();
 
-            default:
-                menuFav.setVisible(true);
-        }
     }
 
 
         private void addQuotationsInDatabase (final Quotation quotation) {
-            switch (prefDB) {
-                case Room:
-                    QuotationRoomDatabase.getInstance(QuotationActivity.this).getQuotationDAO().addQuotation(quotation);
-                    break;
-                case SQLite:
-                    QuotationSQLiteHelper.getInstance(QuotationActivity.this).addQuotationInDatabase(quotation);
-                    break;
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                switch (prefDB) {
+                    case Room:
+                        QuotationRoomDatabase.getInstance(QuotationActivity.this).getQuotationDAO().addQuotation(quotation);
+                        break;
+                    case SQLite:
+                        QuotationSQLiteHelper.getInstance(QuotationActivity.this).addQuotationInDatabase(quotation);
+                        break;
+                }
             }
-
+        }).start();
+        isVisibleFavourites = true;
         }
 
     }

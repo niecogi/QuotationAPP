@@ -44,28 +44,48 @@ public class FavouriteActivity extends AppCompatActivity {
     }
      */
 
+    public void onLoadQuotation (List<Quotation> quotationList){
+        //visi
+
+    }
+
      private void removeQuotation (final Quotation quotation){
-         switch (prefDB){
-             case Room:
-                 QuotationRoomDatabase.getInstance(FavouriteActivity.this).getQuotationDAO().removeQuotation(quotation);
-                 break;
-             case SQLite:
-                 QuotationSQLiteHelper.getInstance(FavouriteActivity.this).removeQuotationInDatabase(quotation);
-                 break;
-         }
+         new Thread(new Runnable() {
+             @Override
+             public void run() {
+                 switch (prefDB){
+                     case Room:
+                         QuotationRoomDatabase.getInstance(FavouriteActivity.this).getQuotationDAO().removeQuotation(quotation);
+                         break;
+                     case SQLite:
+                         QuotationSQLiteHelper.getInstance(FavouriteActivity.this).removeQuotationInDatabase(quotation);
+                         break;
+                 }
+
+
+             }
+         }).start();
+
      }
 
      private void removeAllQuotations (){
-         switch (prefDB){
-             case Room:
-                 QuotationRoomDatabase.getInstance(FavouriteActivity.this).getQuotationDAO().deleteAllQuotes();
+         new Thread(new Runnable() {
+             @Override
+             public void run() {
+                 switch (prefDB){
+                     case Room:
+                         QuotationRoomDatabase.getInstance(FavouriteActivity.this).getQuotationDAO().deleteAllQuotes();
 
-                 break;
-             case SQLite:
-                 QuotationSQLiteHelper.getInstance(FavouriteActivity.this).removeAllQuotationsInDatabase();
+                         break;
+                     case SQLite:
+                         QuotationSQLiteHelper.getInstance(FavouriteActivity.this).removeAllQuotationsInDatabase();
 
-                 break;
-         }
+                         break;
+                 }
+             }
+         }).start();
+
+
      }
 
 
@@ -91,7 +111,7 @@ public class FavouriteActivity extends AppCompatActivity {
         RecyclerView.LayoutManager manager = new LinearLayoutManager(this);
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         recyclerView.setLayoutManager(manager);
-        List<Quotation> list = getDatabaseList();
+        List<Quotation> list = QuotationSQLiteHelper.getInstance(FavouriteActivity.this).getListAllQuotations();;
 
 
 
@@ -131,21 +151,29 @@ public class FavouriteActivity extends AppCompatActivity {
             }
 
 
-
+/*
             public List<Quotation> getDatabaseList(){
-                switch (prefDB) {
-                    case Room:
-                        return QuotationRoomDatabase.getInstance(FavouriteActivity.this).getQuotationDAO().getAllQuotationsFromDatabase();
-                    case SQLite:
-                        return QuotationSQLiteHelper.getInstance(FavouriteActivity.this).getListAllQuotations();
-                    default: return QuotationSQLiteHelper.getInstance(this).getListAllQuotations();
-                }
+         new Thread(new Runnable() {
+             @Override
+             public void run() {
+                 switch (prefDB) {
+                     case Room:
+                         return QuotationRoomDatabase.getInstance(FavouriteActivity.this).getQuotationDAO().getAllQuotationsFromDatabase();
+                     case SQLite:
+                         return QuotationSQLiteHelper.getInstance(FavouriteActivity.this).getListAllQuotations();
+                     default: return QuotationSQLiteHelper.getInstance(this).getListAllQuotations();
+                 }
+             }
+         }).start();
+         */
 
 
 
 
 
-            }
+
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.fav_menu,menu);

@@ -21,6 +21,8 @@ public class QuotationSQLiteHelper extends SQLiteOpenHelper {
         super(context,databaseName,null,1);
     }
 
+
+
     public boolean isInTheFavDatabase(Quotation quotation){
         boolean is_in_database;
         SQLiteDatabase database = getReadableDatabase();
