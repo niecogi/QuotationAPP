@@ -15,7 +15,6 @@ public class SettingsActivity extends AppCompatActivity {
     private String username;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,17 +26,8 @@ public class SettingsActivity extends AppCompatActivity {
                 .replace(R.id.fcvSettingsLayoutActivity, SettingsFragment.class, null)
                 .commit();
 
-        //username = (EditText) findViewById(R.id.editTextUsername_Settings);
-        //SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
-        //username.setText(pref.getString("username",""));
-
-
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
         user = pref.getString("username","");
-        //username.setText(pref.getString("username",""));
-
-
-
 
     }
 
@@ -47,16 +37,7 @@ public class SettingsActivity extends AppCompatActivity {
         //username = (EditText) findViewById(R.id.editTextUsername_Settings);
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor  editor = preferences.edit();
-/*
-        if (preferences.getString("username","") != null){
-            editor.putString("username",username.getText().toString());
 
-        }else {
-            editor.remove(username.getText().toString());
-        }
-        editor.apply();
-
- */
         if(preferences.getString("username","")!= null){
             editor.putString("username", user);
 
@@ -65,4 +46,5 @@ public class SettingsActivity extends AppCompatActivity {
         }
 
     }
+
 }

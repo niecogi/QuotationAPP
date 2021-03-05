@@ -115,14 +115,9 @@ public class QuotationActivity extends AppCompatActivity {
                     case Room:
                         boolean isInROOMDatabase = QuotationRoomDatabase.getInstance(QuotationActivity.this).getQuotationDAO().getQuotationByText((quotation.getQuoteText())) != null;
                         isVisibleFavourites= !isInROOMDatabase;
-
-                        break;
                     case SQLite:
                         boolean isInSQLDatabase = QuotationSQLiteHelper.getInstance(QuotationActivity.this).isInTheFavDatabase(quotation);
                         isVisibleFavourites= !isInSQLDatabase;
-
-                        break;
-
                     default:
                         isVisibleFavourites =true;
                 }

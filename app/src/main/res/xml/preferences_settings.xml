@@ -20,6 +20,7 @@
             android:entryValues="@array/array4_options_access_database_values"
             android:key="@string/preference_database"
             android:title="@string/database_label"
+            android:defaultValue="@string/a2_item_SQLiteOpenHelper"
              />
     </PreferenceCategory>
 

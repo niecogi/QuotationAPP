@@ -25,7 +25,7 @@ public class QuotationSQLiteHelper extends SQLiteOpenHelper {
 
     public boolean isInTheFavDatabase(Quotation quotation){
         boolean is_in_database;
-        SQLiteDatabase database = getReadableDatabase();
+        try( SQLiteDatabase database = getReadableDatabase()){
             Cursor cursor = database.query(QuotationBaseColumns.tableName, null,
                     String.format("%s=?", QuotationBaseColumns.colName_quoteText), new String[]{quotation.getQuoteText()}, null,
                     null, null,null);
@@ -36,8 +36,9 @@ public class QuotationSQLiteHelper extends SQLiteOpenHelper {
                 is_in_database = false;
             }
             cursor.close();
-            database.close();
-            return is_in_database;
+        }
+
+        return is_in_database;
     }
 
     public void addQuotationInDatabase(Quotation quotation){
@@ -47,8 +48,6 @@ public class QuotationSQLiteHelper extends SQLiteOpenHelper {
 
         try(SQLiteDatabase db = getWritableDatabase()){
             db.insert(QuotationBaseColumns.tableName,null,content);
-            db.close();
-            //??? HACE FALTA?
         }catch (SQLiteException e) {
             e.printStackTrace();
         }
@@ -57,7 +56,6 @@ public class QuotationSQLiteHelper extends SQLiteOpenHelper {
     public void removeAllQuotationsInDatabase(){
         try (SQLiteDatabase db = getWritableDatabase()) {
             db.delete(QuotationBaseColumns.tableName, null, null);
-            db.close();
         }catch (SQLiteException e) {
         e.printStackTrace();
         }

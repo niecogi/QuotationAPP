@@ -14,6 +14,7 @@ public abstract class QuotationRoomDatabase extends RoomDatabase
 
     private static QuotationRoomDatabase instance ;
     private static final String database_name = "quotation_database";
+    public QuotationRoomDatabase(){}
     public abstract  QuotationRoomDAO getQuotationDAO();
 
     public static synchronized  QuotationRoomDatabase getInstance(Context context){
