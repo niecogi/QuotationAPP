@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="name_get_quotes">" Obtener citas"</string>
+    <string name="name_about">Sobre mi</string>
+    <string name="name_settings">Ajustes</string>
+    <string name="name_fav_quotes">Citas favoritas</string>
+    <string name="name_author_info">Información sobre el autor</string>
+    <string name="tittle_random">Citas aleatorias</string>
+    <string name="tittle_settings">Ajustes</string>
+    <string name="tittle_about">Sobre mi</string>
+    <string name="person1_description">Persona 1</string>
+    <string name="person2_description">Persona 2</string>
+    <string name="t_settings_name">Nombre que identifica al usuario</string>
+    <string name="t_settings_insert_name">Inserta tu nombre</string>
+    <string name="t_settings_language">" Las citas se recibirán en el idioma seleccionado"</string>
+    <string name="t_settings_method">" Las solicitudes web se realizarán utilizando el método HTTP seleccionado"</string>
+    <string name="t_hello">" “¡Hola,%1s! Presione Actualizar para obtener una nueva cita"</string>
+    <string name="t_sample_quotation">Esta es una cita de muestra</string>
+    <string name="t_sample_autor">Esto es un autor de muestra</string>
+    <string name="tag_quotation">"Quotation Shake re  Nieves C  niecogi@inf.upv.es \\nDADM 2021 "</string>
+    <string name="a1_item_english" > Inglés </string>
+    <string name="a1_item_russian"> Ruso </string>
+    <string name="quote6">Sé amable con los nerds. Puede terminar trabajando para ellos. Todos pudimos.</string>
+    <string name="quote7">Un dia sin risa es un dia desperdiciado</string>
+    <string name="quote8">La felicidad en las personas inteligentes es lo más raro que conozco.</string>
+    <string name="quote9">La única sabiduría verdadera es saber que no sabes nada.</string>
+    <string name="quote10">Quizás uno no quería tanto ser amado como ser entendido.</string>
+    <string name="quote5">Solo vives una vez, pero si lo haces bien, una vez es suficiente</string>
+    <string name="quote4">Muchos libros, poco tiempo.</string>
+    <string name="quote3">Dos cosas son infinitas: el universo y la estupidez humana; y no estoy seguro del universo.</string>
+    <string name="quote2">Ser uno mismo; todos los demás ya están ocupados.</string>
+    <string name="quote1">Ejemplo</string>
+    <string name="menu_add">Añadir</string>
+    <string name="menu_refresh">Actualizar</string>
+    <string name="yes">Si</string>
+    <string name="menu_clear_all_fav">Limpiar todo</string>
+    <string name="confirm_clear_all_fav">¿Estás seguro de que quieres eliminar TODAS tus citas favoritas?</string>
+    <string name="nameless">"Sin nombre "</string>
+    <string name="confirm_clear_quotation">¿Estás seguro de que quieres borrar la cita?</string>
+    <string name="databases_tittle">Esto es el titulo de la base de datos</string>
+    <string name="database_label">Esto es el titulo de la entrada de base de datos</string>
+</resources>
