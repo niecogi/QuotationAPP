@@ -65,7 +65,10 @@ public class FavouriteActivity extends AppCompatActivity implements Adapter.OnIt
     public void onLoadQuotation (List<Quotation> quotationList){
         //visi
         this.quotationList.addAll(quotationList);
-        menuRemoveAllQuotations.setVisible(this.quotationList != null && this.quotationList.size() > 0);
+        if(this.quotationList != null && this.quotationList.size() > 0){
+            menuRemoveAllQuotations.setVisible(true);
+        }else { menuRemoveAllQuotations.setVisible(false);}
+
         //adapter = new Adapter(quotationList,this,this);
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler);
         RecyclerView.LayoutManager manager = new LinearLayoutManager(this);

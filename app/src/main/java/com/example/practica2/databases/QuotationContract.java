@@ -26,11 +26,9 @@ public class QuotationContract {
             context.getString(R.string.a2_item_SQLiteOpenHelper));
 
         if(selectedDatabase.equals(context.getString(R.string.a1_item_Room))) {
-            System.out.println("no entra aqui");
             return Database.Room;
         }
         else if(selectedDatabase.equals(context.getString(R.string.a2_item_SQLiteOpenHelper))) {
-            System.out.println("no entra aqui");
             return Database.SQLite;
         }
         else

@@ -7,10 +7,12 @@
         <PreferenceCategory>
             <ListPreference
                 android:entries="@array/array1_languages"
+                android:entryValues="@array/array1_languages"
                 android:key="settings_languages"
                 android:title="@string/t_settings_language" />
             <ListPreference
                 android:entries="@array/array2_method_HTTP"
+                android:entryValues="@array/array2_method_HTTP"
                 android:key="settings_methods"
                 android:title="@string/t_settings_method" />
         </PreferenceCategory>

@@ -25,7 +25,6 @@ public class FavQuotationThread extends Thread{
     public void run() {
         Context context = this.favActivity.get();
         FavouriteActivity favouriteActivity = this.favActivity.get();
-
         if (context != null) {
             switch (db){
                 case Room:
@@ -36,7 +35,6 @@ public class FavQuotationThread extends Thread{
             favActivity.get().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-
                     favouriteActivity.onLoadQuotation(quotationList);
                 }
             });
