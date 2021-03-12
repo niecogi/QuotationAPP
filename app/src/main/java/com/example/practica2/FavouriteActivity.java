@@ -32,55 +32,42 @@ public class FavouriteActivity extends AppCompatActivity implements Adapter.OnIt
     private Adapter adapter;
     private MenuItem menuRemoveAllQuotations;
     private List<Quotation> quotationList;
+    private Boolean isVisible = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favourite);
-
-        prefDB = QuotationContract.getPreferenceDatabase(this);
         quotationList = new ArrayList<Quotation>();
         adapter = new Adapter(quotationList,this,this);
+        prefDB = QuotationContract.getPreferenceDatabase(this);
+        System.out.print(prefDB);
+
         FavQuotationThread favQuotationThread = new FavQuotationThread(this,prefDB);
         favQuotationThread.start();
-/*
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler);
         RecyclerView.LayoutManager manager = new LinearLayoutManager(this);
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         recyclerView.setLayoutManager(manager);
-        List<Quotation> list = QuotationSQLiteHelper.getInstance(FavouriteActivity.this).getListAllQuotations();;
-        */
-
-
+        recyclerView.setAdapter(adapter);
             }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.fav_menu,menu);
         menuRemoveAllQuotations = menu.findItem(R.id.removeAllQuotesMenu);
-        menuRemoveAllQuotations.setVisible(adapter.getItemCount()>0);
+        menuRemoveAllQuotations.setVisible(isVisible);
         return super.onCreateOptionsMenu(menu);
     }
 
     public void onLoadQuotation (List<Quotation> quotationList){
-        //visi
         this.quotationList.addAll(quotationList);
+        adapter.notifyDataSetChanged();
         if(this.quotationList != null && this.quotationList.size() > 0){
-            menuRemoveAllQuotations.setVisible(true);
-        }else { menuRemoveAllQuotations.setVisible(false);}
-
-        //adapter = new Adapter(quotationList,this,this);
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler);
-        RecyclerView.LayoutManager manager = new LinearLayoutManager(this);
-        recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
-        recyclerView.setLayoutManager(manager);
-
-        recyclerView.setAdapter(adapter);
-
-
+            isVisible = true;
+        }else { isVisible = false;}
+        supportInvalidateOptionsMenu();
     }
-
-
 
     @Override
     public boolean onItemLongClickListener(Adapter adapter, int position) {
@@ -93,7 +80,6 @@ public class FavouriteActivity extends AppCompatActivity implements Adapter.OnIt
                 removeQuotation(quotationToRemove);
                 adapter.removeQuotationPosition(position);
             }
-
 
         });
         dialogBuilder.setNegativeButton(R.string.no, null);
@@ -114,8 +100,6 @@ public class FavouriteActivity extends AppCompatActivity implements Adapter.OnIt
     }
 
 
-
-
     @Override
     public boolean onOptionsItemSelected(@NonNull final MenuItem item) {
         switch (item.getItemId()) {
@@ -129,7 +113,6 @@ public class FavouriteActivity extends AppCompatActivity implements Adapter.OnIt
                      adapter.removeAllQuotations();
                      item.setVisible(false);
                      }
-
              });
              dialogBuilder.setNegativeButton(R.string.no, null);
              dialogBuilder.show();
@@ -154,10 +137,8 @@ public class FavouriteActivity extends AppCompatActivity implements Adapter.OnIt
                         break;
                 }
 
-
             }
         }).start();
-
     }
 
     private void removeAllQuotations (){
@@ -176,10 +157,7 @@ public class FavouriteActivity extends AppCompatActivity implements Adapter.OnIt
                 }
             }
         }).start();
-
-
     }
-
 
     public void getAuthorInfo(Quotation q) throws UnsupportedEncodingException {
         if (q.getQuoteAuthor() == null || q.getQuoteAuthor().isEmpty()) {
@@ -190,21 +168,6 @@ public class FavouriteActivity extends AppCompatActivity implements Adapter.OnIt
         startActivity(intent);
     }
 
-    /*
-    public ArrayList <Quotation> getMockQuotations() {
-        ArrayList<Quotation> list = new ArrayList<>();
-        list.add(new Quotation(getString(R.string.quote1),getString(R.string.author1)));
-        list.add(new Quotation(getString(R.string.quote2),getString(R.string.author2)));
-        list.add(new Quotation(getString(R.string.quote3),getString(R.string.author3)));
-        list.add(new Quotation(getString(R.string.quote4),getString(R.string.author4)));
-        list.add(new Quotation(getString(R.string.quote5),getString(R.string.author5)));
-        list.add(new Quotation(getString(R.string.quote6),getString(R.string.author6)));
-        list.add(new Quotation(getString(R.string.quote7),getString(R.string.author7)));
-        list.add(new Quotation(getString(R.string.quote8),getString(R.string.author8)));
-
-        return list;
-    }
-     */
 /*
             public List<Quotation> getDatabaseList(){
          new Thread(new Runnable() {

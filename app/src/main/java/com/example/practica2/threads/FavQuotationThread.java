@@ -38,8 +38,6 @@ public class FavQuotationThread extends Thread{
                     favouriteActivity.onLoadQuotation(quotationList);
                 }
             });
-            //Nothing
         }
     }
-
 }

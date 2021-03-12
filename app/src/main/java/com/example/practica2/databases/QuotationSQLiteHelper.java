@@ -66,6 +66,7 @@ public class QuotationSQLiteHelper extends SQLiteOpenHelper {
         try (SQLiteDatabase db = getWritableDatabase()) {
             db.delete(QuotationBaseColumns.tableName, String.format("%s=?", QuotationBaseColumns.colName_quoteText),
                     new String[]{quotation.getQuoteText()});
+            db.close();
         }catch (SQLiteException e) {
             e.printStackTrace();
         }

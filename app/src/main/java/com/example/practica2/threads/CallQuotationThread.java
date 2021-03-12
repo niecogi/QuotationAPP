@@ -23,14 +23,6 @@ public class CallQuotationThread extends Thread {
     private static Method selectedMethod = Method.GET;
     private final WeakReference<QuotationActivity> quotationActivity;
     private Quotation quotation;
-    private static final String SCHEME = "https";
-    private static final String AUTHORITY = "api.forismatic.com";
-    private static final String PATH = "/api/1.0/";
-    private String url;
-
-    //private Language selectedLanguage;
-
-
     public enum Language {EN,RU}
     public enum Method {GET,POST}
 
@@ -95,7 +87,6 @@ public class CallQuotationThread extends Thread {
                     reader.close();
                 }
                 connection.disconnect();
-                System.out.println("la conexion se ha cerrado");
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (ProtocolException e) {
@@ -135,7 +126,6 @@ public class CallQuotationThread extends Thread {
                         System.out.println(quotation);
                         // Close the input channel
                         read.close();
-
                 }
                 connection.disconnect();
             } catch (ProtocolException e) {
@@ -148,24 +138,16 @@ public class CallQuotationThread extends Thread {
 
         }
 
-
         Context context = this.quotationActivity.get();
         if (context != null){
             quotationActivity.get().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     quotationActivity.get().upgradeLabels(quotation);
-
+                   // quotationActivity.get().setVisibleProgressBar(false);
                 }
             });
-
         }
-
     }
-
-
-
-
-
     }
 

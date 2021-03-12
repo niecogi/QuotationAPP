@@ -27,28 +27,19 @@ import java.lang.ref.WeakReference;
 
 public class QuotationActivity extends AppCompatActivity {
     private int numQuotes = 0;
-    private boolean isVisibleFavourites=false;
+    private boolean isVisibleFavourites = true;
     private Quotation currentQuotation;
     private CallQuotationThread callQuotationThread;
-
-
-
     private WeakReference<QuotationActivity> weakReferenceQuotation;
     private QuotationActivity quotationActivity;
-
     private MenuItem menuAddFav;
     private MenuItem menuRefresh;
     private ProgressBar progressBar;
     private TextView textViewAuthor;
     private TextView textViewText;
-
-
+    private Quotation quotation;
     private static QuotationContract.Database prefDB;
-
     private QuotationActivity qActivity;
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,42 +53,21 @@ public class QuotationActivity extends AppCompatActivity {
         textViewAuthor = findViewById(R.id.textViewAutor);
 
         if (savedInstanceState == null) {
+            supportInvalidateOptionsMenu();
             SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
             String username = pref.getString("username", getString(R.string.nameless));
             TextView textView_quote = (TextView) findViewById(R.id.textViewText);
             textView_quote.setText(getString(R.string.t_hello).replace("%1s", username));
-
-        }else{
-/*
-            savedInstanceState.getBoolean("add_visible",isVisibleFavourites);
-            textViewAuthor = findViewById(R.id.textViewAutor);
-            textViewText =  findViewById(R.id.textViewText);
-            textViewAuthor.setText(savedInstanceState.getString("t_sample_author",getString(R.string.t_sample_autor)).replace("%1$d", String.valueOf(numQuotes)));
-            textViewText.setText(savedInstanceState.getString("t_sample_quotation",getString(R.string.t_sample_quotation)).replace("%1$d", String.valueOf(numQuotes)));
-            numQuotes++;
-            currentQuotation = new Quotation(textViewText.toString(),textViewAuthor.toString());
-*/
         }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        //getMenuInflater().inflate(R.menu.quotes_menu, menu);
-
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.quotes_menu, menu);
-        menuAddFav = menu.getItem(0);
-
-        menu.findItem(R.id.addFavsQuote).setVisible(isVisibleFavourites);
+        menuAddFav = menu.findItem(R.id.addFavsQuote);
+        menuAddFav.setVisible(isVisibleFavourites);
         return super.onCreateOptionsMenu(menu);
-
-        /*
-        menuFav = menu.getItem(0);
-        menuRefresh = menu.getItem(1);
-          return true;
-         */
-
-
     }
 
     private boolean isInternetAvailable (){
@@ -123,33 +93,21 @@ public class QuotationActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        Quotation quotation = new Quotation(getString(R.string.t_sample_quotation).replace("%1$d", String.valueOf(numQuotes)),getString(R.string.t_sample_autor).replace("%1$d", String.valueOf(numQuotes)));
         switch (item.getItemId()) {
             case R.id.addFavsQuote:
                 addQuotationsInDatabase(quotation);
-                menuAddFav.setVisible(false);
-                seeTheAddButton(quotation);
-                supportInvalidateOptionsMenu();
+                //isVisibleFavourites = false;
+               // supportInvalidateOptionsMenu();
+                //menuAddFav.setVisible(false);
+                //seeTheAddButton(quotation);
+                //supportInvalidateOptionsMenu();
                 return true;
             case R.id.getNewQuote:
+                seeTheAddButton(quotation);
                callQuotationThread = new CallQuotationThread(this);
                if (isInternetAvailable()){
                    callQuotationThread.start();
                }
-
-                /*
-                seeTheAddButton(quotation);
-                textViewAuthor = findViewById(R.id.textViewAutor);
-                textViewText = findViewById(R.id.textViewText);
-
-                textViewAuthor.setText(getString(R.string.t_sample_autor).replace("%1$d", String.valueOf(numQuotes)));
-                textViewText.setText(getString(R.string.t_sample_quotation).replace("%1$d", String.valueOf(numQuotes)));
-                numQuotes++;
-                currentQuotation = new Quotation(textViewText.toString(),textViewAuthor.toString());
-
-                return true;
-                */
-
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -180,7 +138,8 @@ public class QuotationActivity extends AppCompatActivity {
                             weakReferenceQuotation.get().runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    menuAddFav.setVisible(!isInROOMDatabase);
+                                    isVisibleFavourites = !isInROOMDatabase;
+                                    supportInvalidateOptionsMenu();
                                 }
                             });
                         case SQLite:
@@ -188,14 +147,18 @@ public class QuotationActivity extends AppCompatActivity {
                             weakReferenceQuotation.get().runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    menuAddFav.setVisible(!isInSQLDatabase);
+                                    isVisibleFavourites = !isInSQLDatabase;
+                                    invalidateOptionsMenu();
+                                    //supportInvalidateOptionsMenu();
                                 }
                             });
                         default:
                             weakReferenceQuotation.get().runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    menuAddFav.setVisible(true);
+                                    isVisibleFavourites = true;
+                                    invalidateOptionsMenu();
+                                    //supportInvalidateOptionsMenu();
                                 }
                             });
                     }
@@ -205,6 +168,7 @@ public class QuotationActivity extends AppCompatActivity {
 
     }
         public void upgradeLabels(Quotation quote){
+        quotation = quote;
         textViewAuthor.setText(quote.getQuoteAuthor());
         textViewText.setText(quote.getQuoteText());
         progressBar.setVisibility(View.GONE);
@@ -225,6 +189,7 @@ public class QuotationActivity extends AppCompatActivity {
                 }
             }
         }).start();
+        isVisibleFavourites = false;
         }
 /*
     private void existsQuote(final Quotation quotation, final MenuItem addFavouritesItem)
