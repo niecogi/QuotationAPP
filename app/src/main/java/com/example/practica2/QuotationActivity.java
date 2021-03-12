@@ -27,7 +27,7 @@ import java.lang.ref.WeakReference;
 
 public class QuotationActivity extends AppCompatActivity {
     private int numQuotes = 0;
-    private boolean isVisibleFavourites = true;
+    private boolean isVisibleFavourites = false;
     private Quotation currentQuotation;
     private CallQuotationThread callQuotationThread;
     private WeakReference<QuotationActivity> weakReferenceQuotation;
@@ -40,13 +40,20 @@ public class QuotationActivity extends AppCompatActivity {
     private Quotation quotation;
     private static QuotationContract.Database prefDB;
     private QuotationActivity qActivity;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        prefDB = QuotationContract.getPreferenceDatabase(QuotationActivity.this);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quotation);
 
         weakReferenceQuotation = new WeakReference<>(quotationActivity);
-        prefDB = QuotationContract.getPreferenceDatabase(this);
+        prefDB = QuotationContract.getPreferenceDatabase(QuotationActivity.this);
+        System.out.print( prefDB);
 
         progressBar = findViewById(R.id.progressBar);
         textViewText = findViewById(R.id.textViewText);
@@ -96,11 +103,6 @@ public class QuotationActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.addFavsQuote:
                 addQuotationsInDatabase(quotation);
-                //isVisibleFavourites = false;
-               // supportInvalidateOptionsMenu();
-                //menuAddFav.setVisible(false);
-                //seeTheAddButton(quotation);
-                //supportInvalidateOptionsMenu();
                 return true;
             case R.id.getNewQuote:
                 seeTheAddButton(quotation);
@@ -148,16 +150,7 @@ public class QuotationActivity extends AppCompatActivity {
                                 @Override
                                 public void run() {
                                     isVisibleFavourites = !isInSQLDatabase;
-                                    invalidateOptionsMenu();
-                                    //supportInvalidateOptionsMenu();
-                                }
-                            });
-                        default:
-                            weakReferenceQuotation.get().runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    isVisibleFavourites = true;
-                                    invalidateOptionsMenu();
+                                    supportInvalidateOptionsMenu();
                                     //supportInvalidateOptionsMenu();
                                 }
                             });
@@ -169,6 +162,7 @@ public class QuotationActivity extends AppCompatActivity {
     }
         public void upgradeLabels(Quotation quote){
         quotation = quote;
+        existsQuote(quotation,menuAddFav);
         textViewAuthor.setText(quote.getQuoteAuthor());
         textViewText.setText(quote.getQuoteText());
         progressBar.setVisibility(View.GONE);
@@ -190,18 +184,19 @@ public class QuotationActivity extends AppCompatActivity {
             }
         }).start();
         isVisibleFavourites = false;
+        supportInvalidateOptionsMenu();
         }
-/*
+
     private void existsQuote(final Quotation quotation, final MenuItem addFavouritesItem)
     {
         new Thread(new Runnable() {
             @Override
             public void run() {
 
-                switch (preferredDatabase)
+                switch (prefDB)
                 {
                     case SQLite:
-                        final boolean existsSql = QuotationSQLiteOpenHelper.getInstance(QuotationActivity.this).existsQuotation(quotation);
+                        final boolean existsSql = QuotationSQLiteHelper.getInstance(QuotationActivity.this).isInTheFavDatabase(quotation);
                         QuotationActivity.this.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -210,8 +205,8 @@ public class QuotationActivity extends AppCompatActivity {
                         });
                         break;
 
-                    case ROOM:
-                        final boolean existsRoom = QuotationRoom.getInstance(QuotationActivity.this).quotationDao().get(quotation.getQuote()) != null;
+                    case Room:
+                        final boolean existsRoom = QuotationRoomDatabase.getInstance(QuotationActivity.this).getQuotationDAO().getQuotationByText(quotation.getQuoteText()) != null;
                         QuotationActivity.this.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -225,7 +220,7 @@ public class QuotationActivity extends AppCompatActivity {
             }
         }).start();
     }
-*/
+
     }
 
 

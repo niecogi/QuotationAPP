@@ -15,6 +15,7 @@ public class SettingsFragment extends PreferenceFragmentCompat  {
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
 
         setPreferencesFromResource(R.xml.preferences_settings, rootKey);
+
         findPreference(getString(R.string.preference_database)).setOnPreferenceChangeListener(((preference, newValue) -> {
             System.out.println(newValue);
             if (newValue.equals(1)){
@@ -22,6 +23,7 @@ public class SettingsFragment extends PreferenceFragmentCompat  {
             }
             return true;
         }));
+
 
         findPreference("settings_languages").setOnPreferenceChangeListener(((preference, newValue) -> {
             System.out.println(newValue);

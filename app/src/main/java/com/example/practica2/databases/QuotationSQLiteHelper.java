@@ -24,6 +24,7 @@ public class QuotationSQLiteHelper extends SQLiteOpenHelper {
 
 
     public boolean isInTheFavDatabase(Quotation quotation){
+
         boolean is_in_database;
         try( SQLiteDatabase database = getReadableDatabase()){
             Cursor cursor = database.query(QuotationBaseColumns.tableName, null,

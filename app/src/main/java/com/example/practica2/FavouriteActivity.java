@@ -35,13 +35,22 @@ public class FavouriteActivity extends AppCompatActivity implements Adapter.OnIt
     private Boolean isVisible = true;
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        prefDB = QuotationContract.getPreferenceDatabase(FavouriteActivity.this);
+        System.out.print("onresume"+ prefDB);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favourite);
         quotationList = new ArrayList<Quotation>();
         adapter = new Adapter(quotationList,this,this);
-        prefDB = QuotationContract.getPreferenceDatabase(this);
-        System.out.print(prefDB);
+
+        prefDB = QuotationContract.getPreferenceDatabase(FavouriteActivity.this);
+        System.out.print("predf"+ prefDB);
+
 
         FavQuotationThread favQuotationThread = new FavQuotationThread(this,prefDB);
         favQuotationThread.start();
@@ -128,6 +137,7 @@ public class FavouriteActivity extends AppCompatActivity implements Adapter.OnIt
         new Thread(new Runnable() {
             @Override
             public void run() {
+
                 switch (prefDB){
                     case Room:
                         QuotationRoomDatabase.getInstance(FavouriteActivity.this).getQuotationDAO().removeQuotation(quotation);
@@ -145,6 +155,7 @@ public class FavouriteActivity extends AppCompatActivity implements Adapter.OnIt
         new Thread(new Runnable() {
             @Override
             public void run() {
+                System.out.println(prefDB);
                 switch (prefDB){
                     case Room:
                         QuotationRoomDatabase.getInstance(FavouriteActivity.this).getQuotationDAO().deleteAllQuotes();
