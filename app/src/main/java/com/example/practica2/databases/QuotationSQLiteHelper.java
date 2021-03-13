@@ -106,7 +106,7 @@ public class QuotationSQLiteHelper extends SQLiteOpenHelper {
     }
 
     public static synchronized QuotationSQLiteHelper getInstance(Context context){
-        if (instance ==null ){
+        if (instance == null ){
             instance = new QuotationSQLiteHelper(context);
         }
         return instance;

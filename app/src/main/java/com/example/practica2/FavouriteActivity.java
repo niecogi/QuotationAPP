@@ -34,22 +34,16 @@ public class FavouriteActivity extends AppCompatActivity implements Adapter.OnIt
     private List<Quotation> quotationList;
     private Boolean isVisible = true;
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        prefDB = QuotationContract.getPreferenceDatabase(FavouriteActivity.this);
-        System.out.print("onresume"+ prefDB);
-    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favourite);
+
         quotationList = new ArrayList<Quotation>();
         adapter = new Adapter(quotationList,this,this);
-
-        prefDB = QuotationContract.getPreferenceDatabase(FavouriteActivity.this);
-        System.out.print("predf"+ prefDB);
+        prefDB = QuotationContract.getPreferenceDatabase(this);
 
 
         FavQuotationThread favQuotationThread = new FavQuotationThread(this,prefDB);
@@ -103,7 +97,7 @@ public class FavouriteActivity extends AppCompatActivity implements Adapter.OnIt
         } catch (IllegalArgumentException ex) {
             Toast.makeText(FavouriteActivity.this, ex.getMessage(), Toast.LENGTH_SHORT).show();
         } catch (UnsupportedEncodingException ex) {
-            Toast.makeText(FavouriteActivity.this, "The information cannot be obtained",
+            Toast.makeText(FavouriteActivity.this, R.string.cannot_bobtained,
                     Toast.LENGTH_SHORT).show();
         }
     }
@@ -179,21 +173,6 @@ public class FavouriteActivity extends AppCompatActivity implements Adapter.OnIt
         startActivity(intent);
     }
 
-/*
-            public List<Quotation> getDatabaseList(){
-         new Thread(new Runnable() {
-             @Override
-             public void run() {
-                 switch (prefDB) {
-                     case Room:
-                         return QuotationRoomDatabase.getInstance(FavouriteActivity.this).getQuotationDAO().getAllQuotationsFromDatabase();
-                     case SQLite:
-                         return QuotationSQLiteHelper.getInstance(FavouriteActivity.this).getListAllQuotations();
-                     default: return QuotationSQLiteHelper.getInstance(this).getListAllQuotations();
-                 }
-             }
-         }).start();
-         */
     }
 
 

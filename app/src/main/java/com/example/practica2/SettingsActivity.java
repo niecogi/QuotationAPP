@@ -15,6 +15,7 @@ public class SettingsActivity extends AppCompatActivity {
     private String username;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +31,8 @@ public class SettingsActivity extends AppCompatActivity {
         user = pref.getString("username","");
 
     }
+
+
 
     @Override
     protected void onPause() {

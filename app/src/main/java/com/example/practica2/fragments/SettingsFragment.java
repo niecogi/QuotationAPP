@@ -16,9 +16,9 @@ public class SettingsFragment extends PreferenceFragmentCompat  {
 
         setPreferencesFromResource(R.xml.preferences_settings, rootKey);
 
-        findPreference(getString(R.string.preference_database)).setOnPreferenceChangeListener(((preference, newValue) -> {
+        findPreference("preference_database").setOnPreferenceChangeListener(((preference, newValue) -> {
             System.out.println(newValue);
-            if (newValue.equals(1)){
+            if (newValue.toString() == "SQLiteOpenHelper"){
                 QuotationRoomDatabase.destroyInstance();
             }
             return true;

@@ -26,7 +26,6 @@ public class CallQuotationThread extends Thread {
     public enum Language {EN,RU}
     public enum Method {GET,POST}
 
-
     public static void setLanguage(String lang){
         if(lang == "EN"){
             selectedLanguage = Language.EN;
@@ -43,6 +42,16 @@ public class CallQuotationThread extends Thread {
         }
 
     }
+/*
+    public static void setPreferedDatabase(Database preferedDatabase){
+        if (preferedDatabase == "Room"){
+            selectedLanguage= Method.GET;
+        }else if(m == "POST"){
+            selectedMethod = Method.POST;
+        }
+
+    }
+    */
 
 
 

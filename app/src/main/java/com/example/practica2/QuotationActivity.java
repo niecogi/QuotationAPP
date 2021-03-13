@@ -26,9 +26,7 @@ import com.example.practica2.threads.CallQuotationThread;
 import java.lang.ref.WeakReference;
 
 public class QuotationActivity extends AppCompatActivity {
-    private int numQuotes = 0;
     private boolean isVisibleFavourites = false;
-    private Quotation currentQuotation;
     private CallQuotationThread callQuotationThread;
     private WeakReference<QuotationActivity> weakReferenceQuotation;
     private QuotationActivity quotationActivity;
@@ -41,19 +39,14 @@ public class QuotationActivity extends AppCompatActivity {
     private static QuotationContract.Database prefDB;
     private QuotationActivity qActivity;
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        prefDB = QuotationContract.getPreferenceDatabase(QuotationActivity.this);
-    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quotation);
 
         weakReferenceQuotation = new WeakReference<>(quotationActivity);
-        prefDB = QuotationContract.getPreferenceDatabase(QuotationActivity.this);
-        System.out.print( prefDB);
+        prefDB = QuotationContract.getPreferenceDatabase(this);
 
         progressBar = findViewById(R.id.progressBar);
         textViewText = findViewById(R.id.textViewText);
@@ -79,7 +72,7 @@ public class QuotationActivity extends AppCompatActivity {
 
     private boolean isInternetAvailable (){
         Boolean isAvailable;
-        ConnectivityManager  connectivityManager= (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+        ConnectivityManager  connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
         if(connectivityManager == null) {
             return false;
         }
@@ -93,8 +86,6 @@ public class QuotationActivity extends AppCompatActivity {
         super.onSaveInstanceState(outState, outPersistentState);
         outState.putString("t_sample_author",getString(R.string.t_sample_autor));
         outState.putString("t_sample_quotation",getString(R.string.t_sample_quotation));
-        outState.putInt("num_quotes",numQuotes);
-        //outState.putBoolean("add_visible",isVisibleFavourites);
 
     }
 
@@ -151,7 +142,6 @@ public class QuotationActivity extends AppCompatActivity {
                                 public void run() {
                                     isVisibleFavourites = !isInSQLDatabase;
                                     supportInvalidateOptionsMenu();
-                                    //supportInvalidateOptionsMenu();
                                 }
                             });
                     }
@@ -170,6 +160,7 @@ public class QuotationActivity extends AppCompatActivity {
         }
 
         private void addQuotationsInDatabase (final Quotation quotation) {
+        System.out.println(prefDB);
         new Thread(new Runnable() {
             @Override
             public void run() {
