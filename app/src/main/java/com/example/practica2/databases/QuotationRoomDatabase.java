@@ -9,9 +9,7 @@ import androidx.room.RoomDatabase;
 import com.example.practica2.quotation.Quotation;
 
 @Database(version = 1, entities = {Quotation.class}, exportSchema = false)
-public abstract class QuotationRoomDatabase extends RoomDatabase
-{
-
+public abstract class QuotationRoomDatabase extends RoomDatabase {
     private static QuotationRoomDatabase instance ;
     private static final String database_name = "quotation_database";
     public QuotationRoomDatabase(){}
@@ -24,7 +22,7 @@ public abstract class QuotationRoomDatabase extends RoomDatabase
         return instance;
     }
     public static synchronized  void destroyInstance(){
-        if (instance != null && instance.isOpen()){
+        if ((instance != null) && instance.isOpen() == true ){
             instance.close();
             instance = null;
         }

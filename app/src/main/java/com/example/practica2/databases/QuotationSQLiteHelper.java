@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.example.practica2.databases.QuotationContract.QuotationBaseColumns;
+import com.example.practica2.databases.QuotationContract.QuotationSchema;
 import com.example.practica2.quotation.Quotation;
 
 import java.util.ArrayList;
@@ -21,14 +21,11 @@ public class QuotationSQLiteHelper extends SQLiteOpenHelper {
         super(context,databaseName,null,1);
     }
 
-
-
     public boolean isInTheFavDatabase(Quotation quotation){
-
         boolean is_in_database;
         try( SQLiteDatabase database = getReadableDatabase()){
-            Cursor cursor = database.query(QuotationBaseColumns.tableName, null,
-                    String.format("%s=?", QuotationBaseColumns.colName_quoteText), new String[]{quotation.getQuoteText()}, null,
+            Cursor cursor = database.query(QuotationSchema.TABLE_NAME, null,
+                    String.format("%s=?", QuotationSchema.COL_QUOTE_TEXT), new String[]{quotation.getQuoteText()}, null,
                     null, null,null);
 
             if (cursor.getCount() > 0) {
@@ -44,11 +41,11 @@ public class QuotationSQLiteHelper extends SQLiteOpenHelper {
 
     public void addQuotationInDatabase(Quotation quotation){
         ContentValues content = new ContentValues();
-        content.put(QuotationBaseColumns.colName_quoteText, quotation.getQuoteText());
-        content.put(QuotationBaseColumns.colName_authorName,quotation.getQuoteAuthor());
+        content.put(QuotationSchema.COL_QUOTE_TEXT, quotation.getQuoteText());
+        content.put(QuotationSchema.COL_AUTHOR_NAME,quotation.getQuoteAuthor());
 
         try(SQLiteDatabase db = getWritableDatabase()){
-            db.insert(QuotationBaseColumns.tableName,null,content);
+            db.insert(QuotationSchema.TABLE_NAME,null,content);
         }catch (SQLiteException e) {
             e.printStackTrace();
         }
@@ -56,16 +53,15 @@ public class QuotationSQLiteHelper extends SQLiteOpenHelper {
 
     public void removeAllQuotationsInDatabase(){
         try (SQLiteDatabase db = getWritableDatabase()) {
-            db.delete(QuotationBaseColumns.tableName, null, null);
+            db.delete(QuotationSchema.TABLE_NAME, null, null);
         }catch (SQLiteException e) {
         e.printStackTrace();
         }
-
     }
 
     public void removeQuotationInDatabase(Quotation quotation){
         try (SQLiteDatabase db = getWritableDatabase()) {
-            db.delete(QuotationBaseColumns.tableName, String.format("%s=?", QuotationBaseColumns.colName_quoteText),
+            db.delete(QuotationSchema.TABLE_NAME, String.format("%s=?", QuotationSchema.COL_QUOTE_TEXT),
                     new String[]{quotation.getQuoteText()});
             db.close();
         }catch (SQLiteException e) {
@@ -75,35 +71,31 @@ public class QuotationSQLiteHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-
         db.execSQL(String.format("CREATE TABLE %s(" +
                         "%s INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
                         "%s TEXT NOT NULL," +
                         "%s TEXT);" ,
-                QuotationContract.QuotationBaseColumns.tableName,
-                QuotationContract.QuotationBaseColumns._ID,
-                QuotationContract.QuotationBaseColumns.colName_quoteText,
-                QuotationContract.QuotationBaseColumns.colName_authorName));
-
+                QuotationSchema.TABLE_NAME,
+                QuotationSchema._ID,
+                QuotationSchema.COL_QUOTE_TEXT,
+                QuotationSchema.COL_AUTHOR_NAME));
     }
+
     public ArrayList<Quotation> getListAllQuotations(){
         ArrayList<Quotation> qList = new ArrayList<>();
         SQLiteDatabase database = getReadableDatabase();
-        Cursor qCursor = database.query(QuotationBaseColumns.tableName, new String[]{QuotationBaseColumns.colName_quoteText,
-                QuotationBaseColumns.colName_authorName}, null, null, null, null, null);
+        Cursor qCursor = database.query(QuotationSchema.TABLE_NAME, new String[]{QuotationSchema.COL_QUOTE_TEXT,
+                QuotationSchema.COL_AUTHOR_NAME}, null, null, null, null, null);
         while (qCursor.moveToNext()){
             String qText = qCursor.getString(0);
             String qAuthor = qCursor.getString(1);
             qList.add(new Quotation(qText,qAuthor));
         }
     return qList;
-
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
-    }
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) { }
 
     public static synchronized QuotationSQLiteHelper getInstance(Context context){
         if (instance == null ){
@@ -111,9 +103,6 @@ public class QuotationSQLiteHelper extends SQLiteOpenHelper {
         }
         return instance;
     }
-
-
-
 }
 
 

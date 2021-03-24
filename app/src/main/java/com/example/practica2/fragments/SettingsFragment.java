@@ -9,51 +9,35 @@ import com.example.practica2.databases.QuotationRoomDatabase;
 import com.example.practica2.threads.CallQuotationThread;
 
 public class SettingsFragment extends PreferenceFragmentCompat  {
-
-
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
-
         setPreferencesFromResource(R.xml.preferences_settings, rootKey);
-
         findPreference("preference_database").setOnPreferenceChangeListener(((preference, newValue) -> {
-            System.out.println(newValue);
-            if (newValue.toString() == "SQLiteOpenHelper"){
+            if (newValue.equals(getString(R.string.a2_item_SQLiteOpenHelper)) ){
                 QuotationRoomDatabase.destroyInstance();
             }
             return true;
         }));
 
-
         findPreference("settings_languages").setOnPreferenceChangeListener(((preference, newValue) -> {
-            System.out.println(newValue);
-
             if ( newValue.toString() == "English"){
                 CallQuotationThread.setLanguage("EN");
             }
             else{
                 CallQuotationThread.setLanguage("RU");
             }
-            return
-                    true;
+            return true;
         }));
 
         findPreference("settings_methods").setOnPreferenceChangeListener(((preference, newValue) -> {
-            System.out.println(newValue);
-
             if ( newValue.toString() == "GET"){
                 CallQuotationThread.setMethod("GET");
             }
             else{
                 CallQuotationThread.setMethod("POST");
             }
-            return
-                    true;
+            return true;
         }));
-
-
     }
-
-
     }
 

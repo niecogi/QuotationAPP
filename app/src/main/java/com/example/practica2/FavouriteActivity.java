@@ -33,8 +33,13 @@ public class FavouriteActivity extends AppCompatActivity implements Adapter.OnIt
     private MenuItem menuRemoveAllQuotations;
     private List<Quotation> quotationList;
     private Boolean isVisible = true;
+    private String WIKI_SEARCH = "https://en.wikipedia.org/wiki/Special:Search?search=";
 
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        prefDB = QuotationContract.getPreferenceDatabase(this);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +48,8 @@ public class FavouriteActivity extends AppCompatActivity implements Adapter.OnIt
 
         quotationList = new ArrayList<Quotation>();
         adapter = new Adapter(quotationList,this,this);
+
         prefDB = QuotationContract.getPreferenceDatabase(this);
-
-
         FavQuotationThread favQuotationThread = new FavQuotationThread(this,prefDB);
         favQuotationThread.start();
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler);
@@ -149,15 +153,12 @@ public class FavouriteActivity extends AppCompatActivity implements Adapter.OnIt
         new Thread(new Runnable() {
             @Override
             public void run() {
-                System.out.println(prefDB);
                 switch (prefDB){
                     case Room:
                         QuotationRoomDatabase.getInstance(FavouriteActivity.this).getQuotationDAO().deleteAllQuotes();
-
                         break;
                     case SQLite:
                         QuotationSQLiteHelper.getInstance(FavouriteActivity.this).removeAllQuotationsInDatabase();
-
                         break;
                 }
             }
@@ -166,10 +167,10 @@ public class FavouriteActivity extends AppCompatActivity implements Adapter.OnIt
 
     public void getAuthorInfo(Quotation q) throws UnsupportedEncodingException {
         if (q.getQuoteAuthor() == null || q.getQuoteAuthor().isEmpty()) {
-            throw new IllegalArgumentException("The information cannot be obtained(author cannot be null or empty)");
+            throw new IllegalArgumentException(getString(R.string.cannot_bobtained_author));
         }
         Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setData(Uri.parse("https://en.wikipedia.org/wiki/Special:Search?search=" + URLEncoder.encode(q.getQuoteAuthor(), "UTF-8")));
+        intent.setData(Uri.parse(WIKI_SEARCH + URLEncoder.encode(q.getQuoteAuthor(), "UTF-8")));
         startActivity(intent);
     }
 

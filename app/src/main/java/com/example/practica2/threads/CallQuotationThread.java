@@ -40,27 +40,21 @@ public class CallQuotationThread extends Thread {
         }else if(m == "POST"){
             selectedMethod = Method.POST;
         }
-
     }
-/*
-    public static void setPreferedDatabase(Database preferedDatabase){
-        if (preferedDatabase == "Room"){
-            selectedLanguage= Method.GET;
-        }else if(m == "POST"){
-            selectedMethod = Method.POST;
-        }
-
-    }
-    */
-
-
 
     public CallQuotationThread(QuotationActivity quotationActivity)
     {
         this.quotationActivity= new WeakReference<>(quotationActivity);
     }
+
     @Override
     public void run() {
+        quotationActivity.get().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                quotationActivity.get().setVisibleProgressBar(true);
+            }
+        });
         Method method = selectedMethod;
         Language language = selectedLanguage;
         Uri.Builder uri = new Uri.Builder()
@@ -69,29 +63,22 @@ public class CallQuotationThread extends Thread {
                 .appendPath("api")
                 .appendPath("1.0")
                 .appendPath("");
-
         if( method  ==  Method.GET){
             uri.appendQueryParameter("method","getQuote");
             uri.appendQueryParameter("format","json");
             uri.appendQueryParameter("lang",language.toString().toLowerCase());
-            System.out.println(language.toString());
             try {
                 URL url= new URL(uri.build().toString());
-                System.out.println(url.toString());
                 HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
                 connection.setRequestMethod("GET");
 
                 if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
-                    System.out.print("GET");
                     // Open an input channel to receive the response from the web service
                     InputStreamReader reader = new InputStreamReader(connection.getInputStream());
                     // Create a Gson object through a GsonBuilder to process the response
-
                     Gson gson = new Gson();
-                    System.out.println(gson);
                     // Deserializes the JSON response into a Quotation object
                     quotation = gson.fromJson(reader, Quotation.class);
-                    System.out.println(quotation);
                     // Close the input channel
                     reader.close();
                 }
@@ -113,26 +100,20 @@ public class CallQuotationThread extends Thread {
             }
             try {
                 URL url = new URL(uri.build().toString());
-                System.out.println(url.toString());
                 HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
                 connection.setRequestMethod("POST");
                 connection.setDoOutput(true);
                 connection.setDoInput(true);
-                System.out.println("POST");
                 OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream());
                 writer.write(body);
                 writer.flush();
                 writer.close();
-
                 if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
                         InputStreamReader read = new InputStreamReader(connection.getInputStream());
                         // Create a Gson object through a GsonBuilder to process the response
                         Gson gson = new Gson();
-                        System.out.println(gson);
-                        System.out.println(read);
                         // Deserializes the JSON response into a Quotation object
                         quotation = gson.fromJson(read, Quotation.class);
-                        System.out.println(quotation);
                         // Close the input channel
                         read.close();
                 }
@@ -152,8 +133,9 @@ public class CallQuotationThread extends Thread {
             quotationActivity.get().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
+                    quotationActivity.get().setVisibleProgressBar(false);
                     quotationActivity.get().upgradeLabels(quotation);
-                   // quotationActivity.get().setVisibleProgressBar(false);
+
                 }
             });
         }

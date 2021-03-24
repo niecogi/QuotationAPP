@@ -25,7 +25,6 @@
             android:entryValues="@array/array3_options_access_database_label"
             android:key="@string/preference_database"
             android:title="@string/database_label"
-            android:defaultValue="@string/a2_item_SQLiteOpenHelper"
              />
     </PreferenceCategory>
 

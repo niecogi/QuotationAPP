@@ -9,7 +9,6 @@
 
 
     </style>
-
     <style name="Theme.Favourite">
         <item name="android:textAppearance">?android:attr/textAppearanceLarge</item>
         <item name="android:textColor">@color/pink</item>

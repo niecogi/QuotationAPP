@@ -6,23 +6,23 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import com.example.practica2.databases.QuotationContract;
 
-@Entity(tableName = "quotation_table")
-public class Quotation
-{
+
+@Entity(tableName = QuotationContract.QuotationSchema.TABLE_NAME)
+public class Quotation {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "_id")
     private int id ;
 
     @NonNull
-    @ColumnInfo(name = "quote")
+    @ColumnInfo(name = QuotationContract.QuotationSchema.COL_QUOTE_TEXT)
     private String quoteText;
 
-    @ColumnInfo(name = "author")
+    @ColumnInfo(name = QuotationContract.QuotationSchema.COL_AUTHOR_NAME)
     private String quoteAuthor;
 
     public Quotation(){}
-
     @Ignore
     public Quotation(String quoteText, String quoteAuthor){
          this.quoteText = quoteText;

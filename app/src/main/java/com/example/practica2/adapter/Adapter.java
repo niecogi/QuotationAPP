@@ -68,18 +68,13 @@ private OnItemLongClickListener itemLongClickListener;
                 public void onClick(View view) {
                     itemClickListener.onItemClickListener(Adapter.this, getAdapterPosition());
                 }
-
             });
             view.setOnLongClickListener(new View.OnLongClickListener(){
                 @Override
                 public boolean onLongClick(View v) {
                     return itemLongClickListener.onItemLongClickListener(Adapter.this,getAdapterPosition());
                 }
-
             });
-
-
-
         }
     }
     public interface OnItemClickListener {
@@ -88,7 +83,5 @@ private OnItemLongClickListener itemLongClickListener;
     public interface OnItemLongClickListener {
         boolean onItemLongClickListener(Adapter adapter, int position);
     }
-
-
 }
 

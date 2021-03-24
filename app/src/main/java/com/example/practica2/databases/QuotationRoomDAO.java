@@ -10,8 +10,7 @@ import com.example.practica2.quotation.Quotation;
 import java.util.List;
 
 @Dao
-public interface QuotationRoomDAO
-{
+public interface QuotationRoomDAO {
     @Insert
     void addQuotation(Quotation quotation);
 

@@ -27,6 +27,7 @@ import java.lang.ref.WeakReference;
 
 public class QuotationActivity extends AppCompatActivity {
     private boolean isVisibleFavourites = false;
+    private boolean isVisibleRefresh= true;
     private CallQuotationThread callQuotationThread;
     private WeakReference<QuotationActivity> weakReferenceQuotation;
     private QuotationActivity quotationActivity;
@@ -37,20 +38,23 @@ public class QuotationActivity extends AppCompatActivity {
     private TextView textViewText;
     private Quotation quotation;
     private static QuotationContract.Database prefDB;
-    private QuotationActivity qActivity;
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quotation);
 
-        weakReferenceQuotation = new WeakReference<>(quotationActivity);
-        prefDB = QuotationContract.getPreferenceDatabase(this);
-
         progressBar = findViewById(R.id.progressBar);
         textViewText = findViewById(R.id.textViewText);
         textViewAuthor = findViewById(R.id.textViewAutor);
+
+        weakReferenceQuotation = new WeakReference<>(quotationActivity);
+        prefDB = QuotationContract.getPreferenceDatabase(this);
 
         if (savedInstanceState == null) {
             supportInvalidateOptionsMenu();
@@ -66,6 +70,9 @@ public class QuotationActivity extends AppCompatActivity {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.quotes_menu, menu);
         menuAddFav = menu.findItem(R.id.addFavsQuote);
+        menuRefresh = menu.findItem(R.id.getNewQuote);
+
+        menuRefresh.setVisible(isVisibleRefresh);
         menuAddFav.setVisible(isVisibleFavourites);
         return super.onCreateOptionsMenu(menu);
     }
@@ -97,6 +104,7 @@ public class QuotationActivity extends AppCompatActivity {
                 return true;
             case R.id.getNewQuote:
                 seeTheAddButton(quotation);
+                supportInvalidateOptionsMenu();
                callQuotationThread = new CallQuotationThread(this);
                if (isInternetAvailable()){
                    callQuotationThread.start();
@@ -106,17 +114,14 @@ public class QuotationActivity extends AppCompatActivity {
         }
     }
 
-
-
-
         public void setVisibleProgressBar(boolean loading){
         textViewText.setVisibility(loading ? View.GONE : View.VISIBLE);
         textViewAuthor.setVisibility(loading ? View.GONE : View.VISIBLE);
-        menuAddFav.setVisible(!loading);
-        menuRefresh.setVisible(!loading);
+        isVisibleFavourites = !loading;
+        isVisibleRefresh = !loading;
+        supportInvalidateOptionsMenu();
         progressBar.setVisibility(loading ? View.VISIBLE : View.GONE);
         }
-
 
     private void seeTheAddButton (final Quotation quotation) {
         new Thread(new Runnable() {
@@ -160,7 +165,6 @@ public class QuotationActivity extends AppCompatActivity {
         }
 
         private void addQuotationsInDatabase (final Quotation quotation) {
-        System.out.println(prefDB);
         new Thread(new Runnable() {
             @Override
             public void run() {
